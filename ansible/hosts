@@ -1,0 +1,5 @@
+[ubuntu]
+192.168.77.23
+
+[ubuntu:vars]
+ansible_password=ubuntu
