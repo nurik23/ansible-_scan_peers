@@ -1,6 +1,7 @@
 sudo subutai
 if [ $? -eq 0 ]; then
   sudo hostname -I | awk '{print $1}' >> /home/ubuntu/aboutProd
+  echo `date` >> /home/ubuntu/aboutProd
   echo "#######################################" >> /home/ubuntu/aboutProd
   sudo /snap/bin/subutai p2p -v >> /home/ubuntu/aboutProd
   echo "Agent and RH version : " >> /home/ubuntu/aboutProd 
@@ -12,6 +13,7 @@ if [ $? -eq 0 ]; then
 sudo subutai-master
   if [ $? -eq 0 ]; then
   sudo hostname -I | awk '{print $1}' >> /home/ubuntu/aboutMaster
+  echo `date` >> /home/ubuntu/aboutMaster
   echo "#######################################" >> /home/ubuntu/aboutMaster 
     sudo /snap/bin/subutai-master p2p -v >> /home/ubuntu/aboutMaster
     echo "Agent and RH version : " >> /home/ubuntu/aboutMaster
@@ -24,6 +26,7 @@ sudo subutai-dev
   if [ $? -eq 0 ]; then
   sudo hostname -I | awk '{print $1}' >> /home/ubuntu/aboutDev
   echo "#######################################" >> /home/ubuntu/aboutDev  
+  echo `date` >> /home/ubuntu/aboutDev
     sudo /snap/bin/subutai-dev p2p -v >> /home/ubuntu/aboutDev
     echo "Agent and RH version : " >> /home/ubuntu/aboutDev
     sudo subutai-dev -v >> /home/ubuntu/aboutDev
@@ -32,8 +35,7 @@ sudo subutai-dev
     fi
  
 sudo apt-get sshpass 
-## You can change [____]
-sudo sshpass -p [pass_of_your_PC] scp /home/ubuntu/about* [user@IP]:~/Desktop/Peers/
+sudo sshpass -p karpinka23 scp /home/ubuntu/about* nurik23@192.168.77.117:~/Desktop/Peers/
 sudo rm -rf about*
 sudo rm -rf scanpeer.sh
 
