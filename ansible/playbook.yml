@@ -1,0 +1,16 @@
+---
+- name: Scan version
+  hosts: ubuntu
+
+  tasks: 
+    - name: Copy scanpeer.sh
+      copy:
+        src: /etc/ansible/scanpeer.sh
+        dest: /home/ubuntu/
+        owner: root
+        group: root
+        mode: 0744
+    - name: Create file   
+      shell: | 
+        ./scanpeer.sh
+
