@@ -35,7 +35,7 @@ sudo subutai-dev
     fi
  
 sudo apt-get sshpass 
-sudo sshpass -p karpinka23 scp /home/ubuntu/about* nurik23@192.168.77.117:~/Desktop/Peers/
+sudo sshpass -p [*****] scp /home/ubuntu/about* [user@Ip]:~/Desktop/Peers/
 sudo rm -rf about*
 sudo rm -rf scanpeer.sh
 
