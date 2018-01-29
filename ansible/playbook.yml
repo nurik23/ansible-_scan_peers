@@ -5,7 +5,7 @@
   tasks: 
     - name: Copy scanpeer.sh
       copy:
-        src: /home/nurik23/Desktop/scanpeer.sh
+        src: /etc/ansible/scanpeer.sh
         dest: /home/ubuntu/
         owner: root
         group: root
