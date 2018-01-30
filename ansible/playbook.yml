@@ -1,16 +1,31 @@
 ---
 - name: Scan version
-  hosts: ubuntu
+  hosts: prod
 
   tasks: 
-    - name: Copy scanpeer.sh
-      copy:
-        src: /etc/ansible/scanpeer.sh
-        dest: /home/ubuntu/
-        owner: root
-        group: root
-        mode: 0744
-    - name: Create file   
+    - name: Scan and create file with versions and sent it  
       shell: | 
-        ./scanpeer.sh
+        global OUT="$(mktemp)"
+        case $hosts in
+          prod)
+            global subutai_var = subutai
+            ;;
+          dev)
+            $subutai_var = subutai-dev
+            ;;
+          master)
+            $subutai_var = subutai-master
+            ;;  
+        esac 
+        sudo hostname -I | awk '{print $1}' >> $OUT
+        echo `date` >> $OUT
+        echo "----------------------" >> $OUT
+        sudo /snap/bin/$subutai_var p2p -v >> $OUT
+        echo "Agent and RH version : " >> $OUT 
+        sudo $subutai_var -v >> $OUT
+        echo "Management version : " >> $OUT
+        sudo $subutai_var attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> $OUT
+        sudo apt-get sshpass 
+        sudo sshpass -p ubuntai scp $OUT [user@Ip]:~/Peer                
+        exit 0                
 
