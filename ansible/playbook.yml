@@ -25,6 +25,9 @@
         sudo $subutai_var -v >> $OUT
         echo "Management version : " >> $OUT
         sudo $subutai_var attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> $OUT
+        sudo apt-get dist-upgrade
+        sudo $subutai_var update rh
+        sudo $subutai_var update management
         sudo apt-get sshpass 
         sudo sshpass -p ubuntai scp $OUT [user@Ip]:~/Peer                
         exit 0                
