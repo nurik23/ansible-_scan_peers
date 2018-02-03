@@ -1,0 +1,4 @@
+---
+_SSH_PORT: '4567'
+_BASE_MAC: '080027d195c0'
+_BRIDGED: 'true'

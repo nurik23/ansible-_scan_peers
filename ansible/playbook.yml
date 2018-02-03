@@ -1,34 +1,44 @@
 ---
 - name: Scan version
   hosts: prod
+  vars:
+    host: prod
+    subutai_var: subutai
+    OUT: /tmp/tmp.test
 
   tasks: 
+#  - name: create temporary file
+#  tempfile:
+#    state: file
+#    suffix: temp  
     - name: Scan and create file with versions and sent it  
       shell: | 
-        global OUT="$(mktemp)"
-        case $hosts in
+        case {{ host }} in
           prod)
-            global subutai_var = subutai
+            {{ subutai_var }} = subutai
             ;;
           dev)
-            $subutai_var = subutai-dev
+            {{ subutai_var }} = subutai-dev
             ;;
           master)
-            $subutai_var = subutai-master
+            {{ subutai_var }} = subutai-master
             ;;  
         esac 
-        sudo hostname -I | awk '{print $1}' >> $OUT
-        echo `date` >> $OUT
-        echo "----------------------" >> $OUT
-        sudo /snap/bin/$subutai_var p2p -v >> $OUT
-        echo "Agent and RH version : " >> $OUT 
-        sudo $subutai_var -v >> $OUT
+        sudo hostname -I | awk '{print $1}' >> {{ OUT }}
+        echo `date` >> {{ OUT }}
+        echo "----------------------" >> {{ OUT }}
+        sudo /snap/bin/{{ subutai_var }} p2p -v >> {{ OUT }}
+        echo "Agent and RH version : " >> {{ OUT }}
+        sudo {{ subutai_var }} -v >> {{ OUT }}
         echo "Management version : " >> $OUT
-        sudo $subutai_var attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> $OUT
-        sudo apt-get dist-upgrade
-        sudo $subutai_var update rh
-        sudo $subutai_var update management
-        sudo apt-get sshpass 
-        sudo sshpass -p ubuntai scp $OUT [user@Ip]:~/Peer                
-        exit 0                
-
+        sudo {{ subutai_var }} attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> {{ OUT }}
+        echo "[DEBUG]---dist-upgrade " >> {{ OUT }}
+        sudo apt-get dist-upgrade -y >> {{ OUT }}
+        echo "[DEBAG]---update rh" >> {{ OUT }}
+        sudo {{ subutai_var }} update rh >> {{ OUT }}
+        echo "[DEBAG]---update management" >> {{ OUT }}
+        sudo {{ subutai_var }} update management >>{{ OUT }}
+        mv {{ OUT }} {{ host }}
+        sudo apt-get -y sshpass 
+        sudo sshpass -p 'ubuntai' scp {{ host }} subutai@192.168.77.29:~/Peer        
+        exit 0       

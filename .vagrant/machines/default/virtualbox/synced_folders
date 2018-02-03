@@ -1,0 +1,1 @@
+{"virtualbox":{"/etc/ansible":{"disabled":false,"guestpath":"/etc/ansible","hostpath":"/home/nurik23/Desktop/ansible_scan_peers/ansible","__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/nurik23/Desktop/ansible_scan_peers","disabled":false,"__vagrantfile":true}}}
