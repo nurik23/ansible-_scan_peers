@@ -40,5 +40,5 @@
         sudo {{ subutai_var }} update management >>{{ OUT }}
         mv {{ OUT }} {{ ip }}
         sudo apt-get -y sshpass 
-        sudo sshpass -p 'ubuntai' scp {{ host }} subutai@192.168.77.29:~/Peer        
+        sudo sshpass -p 'ubuntai' scp {{ ip }} subutai@192.168.77.29:~/Peer        
         exit 0       
