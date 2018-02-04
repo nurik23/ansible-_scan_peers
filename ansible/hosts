@@ -1,7 +1,7 @@
 [prod]
 192.168.77.130 ip=192.168.77.130
 192.168.77.182 ip=192.168.77.182
-
+ 
 [dev]
 192.168.77.104 ip=192.168.77.104
 192.168.77.102 ip=192.168.77.102
@@ -19,5 +19,5 @@
 
 [all:vars]
 ansible_connection=ssh 
-ansible_ssh_user=ubuntu 
-ansible_ssh_pass=ubuntu
+ansible_ssh_user=subutai 
+ansible_ssh_pass=ubuntai

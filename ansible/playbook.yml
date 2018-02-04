@@ -28,6 +28,7 @@
         sudo {{ subutai_var }} -v >> {{ OUT }}
         echo "Management version : " >> {{ OUT }}
         sudo {{ subutai_var }} attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> {{ OUT }}
+        echo "----------------------" >> {{ OUT }
         echo "[DEBUG]---dist-upgrade " >> {{ OUT }}
         sudo apt-get dist-upgrade -y >> {{ OUT }}
         echo "[DEBUG]---update rh" >> {{ OUT }}
@@ -35,5 +36,5 @@
         echo "[DEBUG]---update management" >> {{ OUT }}
         sudo {{ subutai_var }} update management >>{{ OUT }}
         sudo apt-get -y sshpass 
-        sudo sshpass -p 'ubuntai' scp {{ OUT }} subutai@192.168.77.29:~/Peer/       
+        sudo sshpass -p 'ubuntai' scp {{ OUT }} subutai@192.168.77.16:~/Peer/       
         exit 0       
