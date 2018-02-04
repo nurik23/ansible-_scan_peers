@@ -1,9 +1,10 @@
 192.168.77.130
-Sun Feb 4 02:01:37 +06 2018
+Sun Feb 4 15:31:28 +06 2018
 ----------------------
 p2p version 6.2.9
 Agent and RH version : 
 Subutai version 6.4.2
+Management version : 
 6.3.4
 [DEBUG]---dist-upgrade 
 Reading package lists...
@@ -11,8 +12,8 @@ Building dependency tree...
 Reading state information...
 Calculating upgrade...
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
-[DEBAG]---update rh
-time="2018-02-04 02:01:39" level=info msg="No update is available"
-[DEBAG]---update management
-time="2018-02-04 02:01:44" level=info msg="No update is available"
+[DEBUG]---update rh
+time="2018-02-04 15:31:30" level=info msg="No update is available"
+[DEBUG]---update management
+time="2018-02-04 15:31:35" level=info msg="No update is available"
 

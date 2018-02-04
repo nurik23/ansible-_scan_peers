@@ -4,13 +4,9 @@
   vars:
     host: prod
     subutai_var: subutai
-    OUT: /tmp/tmp.test
+    OUT: /tmp/{{ ip }}
 
   tasks: 
-#  - name: create temporary file
-#  tempfile:
-#    state: file
-#    suffix: temp  
     - name: Scan and create file with versions and sent it  
       shell: | 
         case {{ host }} in
@@ -30,15 +26,14 @@
         sudo /snap/bin/{{ subutai_var }} p2p -v >> {{ OUT }}
         echo "Agent and RH version : " >> {{ OUT }}
         sudo {{ subutai_var }} -v >> {{ OUT }}
-        echo "Management version : " >> $OUT
+        echo "Management version : " >> {{ OUT }}
         sudo {{ subutai_var }} attach management cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2 >> {{ OUT }}
         echo "[DEBUG]---dist-upgrade " >> {{ OUT }}
         sudo apt-get dist-upgrade -y >> {{ OUT }}
-        echo "[DEBAG]---update rh" >> {{ OUT }}
+        echo "[DEBUG]---update rh" >> {{ OUT }}
         sudo {{ subutai_var }} update rh >> {{ OUT }}
-        echo "[DEBAG]---update management" >> {{ OUT }}
+        echo "[DEBUG]---update management" >> {{ OUT }}
         sudo {{ subutai_var }} update management >>{{ OUT }}
-        mv {{ OUT }} {{ ip }}
         sudo apt-get -y sshpass 
-        sudo sshpass -p 'ubuntai' scp {{ ip }} subutai@192.168.77.29:~/Peer        
+        sudo sshpass -p 'ubuntai' scp {{ OUT }} subutai@192.168.77.29:~/Peer/       
         exit 0       
