@@ -2,6 +2,7 @@
 Ansible code can scan version of peers and sent report.
 Before starting work with ansible code please do it :
 - install on Peer `python2.7`
+  `sudo apt-get install python`
 - ssh-keygen
 - ssh-copy-id user@IP_addres.
 
