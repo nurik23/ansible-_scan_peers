@@ -6,7 +6,9 @@ Before starting work with ansible code please do it :
 - ssh-keygen (generate ssh key on your machine) 
 - ssh-copy-id user@IP_addres of Peers. (send your public keys to Peers)
 
-And after do it you can rup playbook.yml like this:
+After this,you can run playbook.yml in this directory `cd /etc/ansible/` like this:
 - `ansible-playbook playbook.yml`
+
+(You can edit inventory list at `hosts` file if you need to add or delete Peers. Also you can change variables at playbook.yml : `subutai_var` ; `hosts`. )
 
 'Peers' folder is the example of how it must look like after running the playbook.yml!
