@@ -1,33 +1,38 @@
 ---
 - name: Scan version
-  hosts: master
+  hosts: prod		
   become: true
-  become_method: sudo
   vars:
 ## if prod subutai_var=subutai;elif master =subutai-master;else dev=subutai-dev. 
-    subutai_var: subutai-master
-    OUT: "{{ ip }}"
+    subutai_var: subutai
+    OUT: "{{ ip }}.txt"
 
   tasks: 
    - name: Gathering data
      shell: |
-       sudo hostname -I | awk '{print $1}' >> {{ OUT }}
+       sudo -i
+       touch {{ OUT }}
+       hostname -I | awk '{print $1}' >> {{ OUT }}
        echo `date` >> {{ OUT }}
        echo "----------------------" >> {{ OUT }}
-       sudo /snap/bin/{{ subutai_var }} p2p -v >> {{ OUT }}
+       echo "p2p version :" >> {{ OUT }}
+       /snap/bin/{{ subutai_var }} p2p -v >> {{ OUT }}
        echo "Agent and RH version : " >> {{ OUT }}
-       sudo {{ subutai_var }} -v >> {{ OUT }}
+       {{ subutai_var }} -v >> {{ OUT }}
        echo "Management version : " >> {{ OUT }}
-       sudo {{ subutai_var }} attach management 'cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2' >> {{ OUT }}
+       {{ subutai_var }} attach management 'cat /opt/subutai-mng/etc/git.properties | grep git.build.version | cut -d"=" -f 2' >> {{ OUT }}
        exit 0     
    - name: update
      shell: | 
-       echo "[DEBUG]---dist-upgrade " >> {{ OUT }}
-       sudo apt-get dist-upgrade -y >> {{ OUT }}
+       sudo -i
+       echo `update and dist-upgrade` >> {{ OUT }}
+       apt update && apt dist-upgrade >> {{ OUT }}
+       echo `dpkg -l | grep linux-image` >> {{ OUT }}
+       dpkg -l | grep linux-image >> {{ OUT }}
        echo "[DEBAG]---update rh" >> {{ OUT }}
-       sudo {{ subutai_var }} update rh >> {{ OUT }}
+       {{ subutai_var }} update rh >> {{ OUT }}
        echo "[DEBAG]---update management" >> {{ OUT }}
-       sudo {{ subutai_var }} update management >> {{ OUT }}
+       {{ subutai_var }} update management >> {{ OUT }}
        exit 0   
    - name: return file back
      fetch:

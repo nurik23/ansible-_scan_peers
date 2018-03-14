@@ -1,0 +1,19 @@
+---
+- name: Scan version
+  hosts: dev
+  become: true
+  become_method: sudo
+  vars:
+## if prod subutai_var=subutai;elif master =subutai-master;else dev=subutai-dev. 
+    subutai_var: subutai-dev
+    OUT: "{{ ip }}"
+
+  tasks: 
+   - name: Gathering data
+     shell: |
+       sudo apt-get dist-upgrade -y
+       sudo apt-get update
+       sudo apt-get install nmap -y
+       sudo apt-get install sshpass -y
+       exit 0   
+
